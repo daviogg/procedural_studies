@@ -11,6 +11,9 @@ public class Room : MonoBehaviour
     private Sprite mySprite;
     private SpriteRenderer sr;
 
+    public int MinWidth = 60;
+    public int MaxWidth = 100;
+
     void Awake()
     {
         sr = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
@@ -19,7 +22,7 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        mySprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, 70, 50), new Vector2(0.5f, 0.5f));
+        mySprite = Sprite.Create(tex, new Rect(0, 0,Random.Range(MinWidth, MaxWidth), Random.Range(MinWidth, MaxWidth)), new Vector2(0.5f, 0.5f));
     }
 
     void OnGUI()
