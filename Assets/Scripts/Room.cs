@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEditor;
 
 public class Room : MonoBehaviour
-{
-
+{   
     public Texture2D tex;
     private Sprite mySprite;
     private SpriteRenderer sr;
