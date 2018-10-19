@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class RoomsHandler : MonoBehaviour {
 	public GameObject test;
+    
 	void Start () {
-		
+        test = gameObject;	
 
 	}
 	
