@@ -8,16 +8,18 @@ public class Room : MonoBehaviour
 {
 
     public Texture2D tex;
+    public int MinWidth = 60;
+    public int MaxWidth = 100;
+    public Color SpriteColor;
     private Sprite mySprite;
     private SpriteRenderer sr;
 
-    public int MinWidth = 60;
-    public int MaxWidth = 100;
+ 
 
     void Awake()
     {
         sr = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
-        sr.color = new Color(1, 1, 1, 1);
+        sr.color = SpriteColor;
     }
 
     void Start()
