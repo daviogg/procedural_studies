@@ -18,23 +18,59 @@ public class RoomsHandler : MonoBehaviour
 	public Transform RoomsTransform;
 
 	private GameObject Room;
+
+    public float Radius = 2f;
+
+    private List<GameObject> Rooms;
+
+
+    private void Awake()
+    {
+        Rooms = new List<GameObject>();
+    }
+
+    //TODO: Fix last PolygonCollieder2D dont fit with sprite renderer
     void Update()
     {
         Timer += Time.deltaTime;
 
         if (Timer >= SpawnTimer && roomsCounter < NumberOfRooms)
         {
-            PrefabPosition = new Vector3(Random.Range(MinPosition, MaxPostion), //x 
-                            Random.Range(MinPosition, MaxPostion), //y 
-                                Random.Range(MinPosition, MaxPostion)); //z
+            PrefabPosition = GetRandomPointInCircle(Radius);
 
-			
             Room = Instantiate(RectanglePrefab, PrefabPosition, Quaternion.identity);
 			Room.transform.parent = RoomsTransform;
-			
+
+            Room.AddComponent<Rigidbody2D>().gravityScale = 0;
+            Room.GetComponent<Rigidbody2D>().freezeRotation = true;
+
+            Rooms.Add(Room);
 			Timer = 0;
 			roomsCounter ++;
+
+            if (roomsCounter == NumberOfRooms)
+            {
+                Rooms.ForEach(item => {
+                    item.AddComponent<PolygonCollider2D>();
+                });
+            }
         }
+
+    }
+
+    private Vector2 GetRandomPointInCircle(float radius) {
+        float t = 2 * Mathf.PI * Random.value;
+        float u = Random.value + Random.value;
+        float r = 0f;
+
+        if(u > 1){
+            r = 2 - u;
+        }
+        else{
+            r = u;
+        }
+
+        return new Vector2(radius * r * Mathf.Cos(t), radius*r*Mathf.Sin(t));
     }
 
 }
