@@ -28,8 +28,8 @@ public class RoomsHandler : MonoBehaviour
     {
         Rooms = new List<GameObject>();
     }
+    
 
-    //TODO: Fix last PolygonCollieder2D dont fit with sprite renderer
     void Update()
     {
         Timer += Time.deltaTime;
@@ -39,7 +39,7 @@ public class RoomsHandler : MonoBehaviour
             PrefabPosition = GetRandomPointInCircle(Radius);
 
             Room = Instantiate(RectanglePrefab, PrefabPosition, Quaternion.identity);
-			Room.transform.parent = RoomsTransform;
+            Room.transform.SetParent(RoomsTransform);
 
             Room.AddComponent<Rigidbody2D>().gravityScale = 0;
             Room.GetComponent<Rigidbody2D>().freezeRotation = true;
@@ -48,13 +48,16 @@ public class RoomsHandler : MonoBehaviour
 			Timer = 0;
 			roomsCounter ++;
 
+        }
+        else
+        {
             if (roomsCounter == NumberOfRooms)
             {
-                Rooms.ForEach(item => {
-                    item.AddComponent<PolygonCollider2D>();
-                });
+                ApplyPhysics();
+                roomsCounter++;
             }
         }
+
 
     }
 
@@ -72,5 +75,13 @@ public class RoomsHandler : MonoBehaviour
 
         return new Vector2(radius * r * Mathf.Cos(t), radius*r*Mathf.Sin(t));
     }
+
+   private void ApplyPhysics()
+   {
+        Rooms.ForEach(room =>
+        {
+            room.AddComponent<PolygonCollider2D>();
+        });
+   }
 
 }
