@@ -23,6 +23,8 @@ public class RoomsHandler : MonoBehaviour
 
     private List<GameObject> Rooms;
 
+    private List<GameObject> MainRooms;
+
 
     private void Awake()
     {
@@ -55,13 +57,16 @@ public class RoomsHandler : MonoBehaviour
             {
                 ApplyPhysics();
                 roomsCounter++;
+
             }
         }
 
 
     }
 
-    private Vector2 GetRandomPointInCircle(float radius) {
+
+
+    private Vector2 GetRandomPointInCircle(float radius) { //(ellipse_width, ellipse_height)
         float t = 2 * Mathf.PI * Random.value;
         float u = Random.value + Random.value;
         float r = 0f;
@@ -74,14 +79,18 @@ public class RoomsHandler : MonoBehaviour
         }
 
         return new Vector2(radius * r * Mathf.Cos(t), radius*r*Mathf.Sin(t));
+
+        //return Mathf.Round(ellipse_width * r *Mathf.Cos(t)/2, tile_size),Mathf.Round(ellipse_height * r *Mathf.Sin(t)/2, tile_size)
     }
 
-   private void ApplyPhysics()
+    private void ApplyPhysics()
    {
         Rooms.ForEach(room =>
         {
             room.AddComponent<PolygonCollider2D>();
+            
         });
    }
+
 
 }

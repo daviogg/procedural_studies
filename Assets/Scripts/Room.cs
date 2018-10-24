@@ -18,12 +18,12 @@ public class Room : MonoBehaviour
     void Awake()
     {
         sr = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
-        sr.color = SpriteColor;
+        sr.color = SpriteColor;  
     }
 
     void Start()
     {
-        mySprite = Sprite.Create(tex, new Rect(0, 0,Random.Range(MinWidth, MaxWidth), Random.Range(MinWidth, MaxWidth)), new Vector2(0.5f, 0.5f));
+        mySprite = Sprite.Create(tex, new Rect(0, 0,Random.Range(MinWidth, MaxWidth), Random.Range(MinWidth, MaxWidth)), new Vector2(1f, 1f), 100);
     }
 
     void OnGUI()

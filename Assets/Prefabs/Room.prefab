@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277ef004f543a2444ac2df5983d75358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tex: {fileID: 2800000, guid: 0d1571aff3d5ad646b1c3b24e909c304, type: 3}
+  tex: {fileID: 2800000, guid: 62571bb156c44704fb0d25337ab43e83, type: 3}
   MinWidth: 150
   MaxWidth: 300
   SpriteColor: {r: 0.9716981, g: 0.5577383, b: 0, a: 1}
