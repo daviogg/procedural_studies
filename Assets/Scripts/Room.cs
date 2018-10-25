@@ -7,13 +7,18 @@ using UnityEditor;
 public class Room : MonoBehaviour
 {   
     public Texture2D tex;
-    public int MinWidth = 60;
-    public int MaxWidth = 100;
+    public int MinSize = 60;
+    public int MaxSize = 100;
     public Color SpriteColor;
+
     private Sprite mySprite;
     private SpriteRenderer sr;
 
- 
+    [HideInInspector]
+    public float Width;
+
+    [HideInInspector]
+    public float Height;
 
     void Awake()
     {
@@ -23,7 +28,9 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        mySprite = Sprite.Create(tex, new Rect(0, 0,Random.Range(MinWidth, MaxWidth), Random.Range(MinWidth, MaxWidth)), new Vector2(1f, 1f), 100);
+       Width  = Utility.RoundM(Random.Range(MinSize, MaxSize));
+       Height = Utility.RoundM(Random.Range(MinSize, MaxSize));
+       mySprite     = Sprite.Create(tex, new Rect(0, 0, Width, Height), new Vector2(1f, 1f), 100);
     }
 
     void OnGUI()
