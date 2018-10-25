@@ -49,7 +49,6 @@ public class RoomsHandler : MonoBehaviour
             Rooms.Add(Room);
 			Timer = 0;
 			roomsCounter ++;
-
         }
         else
         {
@@ -57,11 +56,8 @@ public class RoomsHandler : MonoBehaviour
             {
                 ApplyPhysics();
                 roomsCounter++;
-
             }
         }
-
-
     }
 
 
@@ -71,12 +67,7 @@ public class RoomsHandler : MonoBehaviour
         float u = Random.value + Random.value;
         float r = 0f;
 
-        if(u > 1){
-            r = 2 - u;
-        }
-        else{
-            r = u;
-        }
+        r = u > 1 ? 2 - u : r = u; 
 
         return new Vector2(radius * r * Mathf.Cos(t), radius*r*Mathf.Sin(t));
 
@@ -87,8 +78,7 @@ public class RoomsHandler : MonoBehaviour
    {
         Rooms.ForEach(room =>
         {
-            room.AddComponent<PolygonCollider2D>();
-            
+            room.AddComponent<PolygonCollider2D>();        
         });
    }
 
