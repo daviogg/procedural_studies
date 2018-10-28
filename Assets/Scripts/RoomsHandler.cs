@@ -88,9 +88,7 @@ public class RoomsHandler : MonoBehaviour
     //Prendo la media delle width e delle height, moltiplico per 1.25 la media, quella è la soglia
     private void DetectMainRooms()
     {
-        float thresholdW;
-        float thresholdH;
-
+        float threshold;
         float averageW;
         float averageH;
         float sumW = 0;
@@ -101,17 +99,14 @@ public class RoomsHandler : MonoBehaviour
             sumH += room.GetComponent<Room>().Height;
         });
 
-       
-
         averageW = sumW / (Rooms.Count);
         averageH = sumH / (Rooms.Count);
 
-        thresholdW = averageW * 1.2f;
-        thresholdH = averageH * 1.2f;
+        threshold = (averageH * averageW) * 1.2f;
 
         Rooms.ForEach(room => {
-            if (room.GetComponent<Room>().Width > thresholdW && 
-                    room.GetComponent<Room>().Height > thresholdH) {
+            if(room.GetComponent<Room>().Width * room.GetComponent<Room>().Height > threshold)
+            { 
                 MainRooms.Add(room);
                 Debug.Log("Added room");
             }
