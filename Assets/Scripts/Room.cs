@@ -22,7 +22,7 @@ public class Room : MonoBehaviour
 
     void Awake()
     {
-        sr = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
+        sr = gameObject.GetComponent<SpriteRenderer>();
         sr.color = SpriteColor;  
     }
 
