@@ -11,6 +11,7 @@ public class RoomsHandler : MonoBehaviour
     public float SpawnTimer = 2f;
     public int NumberOfRooms = 15;
     public float Radius = 2f;
+    public Color MainRoomColor;
 
     private int roomsCounter = 0;
 	private Vector3 PrefabPosition;
@@ -19,6 +20,8 @@ public class RoomsHandler : MonoBehaviour
 	private GameObject Room;
     private List<GameObject> Rooms;
     private List<GameObject> MainRooms;
+
+
 
     private void Awake()
     {
@@ -96,8 +99,6 @@ public class RoomsHandler : MonoBehaviour
         Rooms.ForEach(room => {
             sumW += room.GetComponent<Room>().Width;
             sumH += room.GetComponent<Room>().Height;
-
-            Debug.Log( "Room " +room.GetComponent<Room>().Width + " , " + room.GetComponent<Room>().Height);
         });
 
        
@@ -105,12 +106,9 @@ public class RoomsHandler : MonoBehaviour
         averageW = sumW / (Rooms.Count);
         averageH = sumH / (Rooms.Count);
 
-        Debug.Log("Room size" + Rooms.Count);
         thresholdW = averageW * 1.2f;
         thresholdH = averageH * 1.2f;
 
-        Debug.Log("Threshold "+thresholdW + " , " + thresholdH);
-       
         Rooms.ForEach(room => {
             if (room.GetComponent<Room>().Width > thresholdW && 
                     room.GetComponent<Room>().Height > thresholdH) {
@@ -121,7 +119,7 @@ public class RoomsHandler : MonoBehaviour
 
         MainRooms.ForEach(mainRoom =>
         {
-            mainRoom.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 1);
+            mainRoom.GetComponent<SpriteRenderer>().color = MainRoomColor;
         });
     }
 

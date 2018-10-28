@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4588874000042788}
   - component: {fileID: 114225290119190470}
-  - component: {fileID: 212740892800738898}
+  - component: {fileID: 212181735050975224}
   m_Layer: 0
   m_Name: Room
   m_TagString: Room
@@ -58,7 +58,7 @@ MonoBehaviour:
   SpriteColor: {r: 0.9716981, g: 0.5577383, b: 0, a: 1}
   Width: 0
   Height: 0
---- !u!212 &212740892800738898
+--- !u!212 &212181735050975224
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5a2e50fa23d85a64fb1e7120d4a40859, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 0.9056604, g: 0.012815925, b: 0.012815925, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

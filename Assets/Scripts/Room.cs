@@ -30,7 +30,7 @@ public class Room : MonoBehaviour
     {
        Width  = Utility.RoundM(Random.Range(MinSize, MaxSize));
        Height = Utility.RoundM(Random.Range(MinSize, MaxSize));
-       mySprite     = Sprite.Create(tex, new Rect(0, 0, Width, Height), new Vector2(1f, 1f), 100);
+       mySprite = Sprite.Create(tex, new Rect(0, 0, Width, Height), new Vector2(1f, 1f), 100);
     }
 
     void OnGUI()

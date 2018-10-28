@@ -146,7 +146,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.1509434, g: 0.13883945, b: 0.14192083, a: 0}
+  m_BackGroundColor: {r: 0.06581525, g: 0.55928004, b: 0.8207547, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -236,6 +236,7 @@ MonoBehaviour:
   SpawnTimer: 0.2
   NumberOfRooms: 35
   Radius: 4
+  MainRoomColor: {r: 0.25711995, g: 0.6603774, b: 0.046724807, a: 1}
 --- !u!1 &1432985678
 GameObject:
   m_ObjectHideFlags: 0
