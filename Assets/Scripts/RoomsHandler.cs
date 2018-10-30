@@ -118,5 +118,22 @@ public class RoomsHandler : MonoBehaviour
         });
     }
 
+    // private List<Triangle> GetTriangles(){
+    //     return null;
+    // }
+
 
 }
+
+
+// public class Triangle {
+//     public Vector2 A;
+
+//     public Vector2 B;
+//     public Vector2 C;
+//     constructor(Vector2 a, Vector2 b, Vector2 c){
+//         A = a;
+//         B = b;
+//         C = c;
+//     }
+// }
