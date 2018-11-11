@@ -8,7 +8,7 @@ using HullDelaunayVoronoi.Primitives;
 namespace HullDelaunayVoronoi
 {
 
-    public class ExampleDelaunay2D : MonoBehaviour
+    public class DelaunyTriangulation : MonoBehaviour
     {
 
         public int NumberOfVertices = 15;
@@ -28,14 +28,14 @@ namespace HullDelaunayVoronoi
 
             List<Vertex2> vertices = new List<Vertex2>();
 
-            Random.InitState(seed);
-            for (int i = 0; i < NumberOfVertices; i++)
-            {
-                float x = size * Random.Range(-1.0f, 1.0f);
-                float y = size * Random.Range(-1.0f, 1.0f);
+            //Random.InitState(seed);
+            //for (int i = 0; i < NumberOfVertices; i++)
+            //{
+            //    float x = size * Random.Range(-1.0f, 1.0f);
+            //    float y = size * Random.Range(-1.0f, 1.0f);
 
-                vertices.Add(new Vertex2(x, y));
-            }
+            //    vertices.Add(new Vertex2(x, y));
+            //}
 
             delaunay = new DelaunayTriangulation2();
             delaunay.Generate(vertices);
@@ -59,7 +59,7 @@ namespace HullDelaunayVoronoi
 
             foreach (DelaunayCell<Vertex2> cell in delaunay.Cells)
             {
-                DrawSimplex(cell.Simplex);
+               DrawSimplex(cell.Simplex);
             }
 
             GL.End();
@@ -78,7 +78,6 @@ namespace HullDelaunayVoronoi
 
         private void DrawSimplex(Simplex<Vertex2> f)
         {
-
             GL.Vertex3(f.Vertices[0].X, f.Vertices[0].Y, 0.0f);
             GL.Vertex3(f.Vertices[1].X, f.Vertices[1].Y, 0.0f);
 
@@ -87,7 +86,6 @@ namespace HullDelaunayVoronoi
 
             GL.Vertex3(f.Vertices[1].X, f.Vertices[1].Y, 0.0f);
             GL.Vertex3(f.Vertices[2].X, f.Vertices[2].Y, 0.0f);
-
         }
 
         private void DrawPoint(Vertex2 v)

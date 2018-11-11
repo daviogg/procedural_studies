@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using HullDelaunayVoronoi.Delaunay;
+using HullDelaunayVoronoi.Primitives;
+
 public class RoomsHandler : MonoBehaviour
 {
 
@@ -20,15 +23,28 @@ public class RoomsHandler : MonoBehaviour
 	private GameObject Room;
     private List<GameObject> Rooms;
     private List<GameObject> MainRooms;
+    private List<Vertex2> CentersOfRooms;
+    private DelaunayTriangulation2 Delaunay;
+
+    private Material lineMaterial;
 
 
+    //TODO: rimuovere
+    private Simplex<Vertex2> vertexForTest;
 
     private void Awake()
     {
         Rooms = new List<GameObject>();
         MainRooms = new List<GameObject>();
+        CentersOfRooms = new List<Vertex2>();
     }
-    
+
+    private void Start()
+    {
+        Delaunay = new DelaunayTriangulation2();
+        lineMaterial = new Material(Shader.Find("Hidden/Internal-Colored"));
+    }
+
     void Update()
     {
         Timer += Time.deltaTime;
@@ -108,32 +124,132 @@ public class RoomsHandler : MonoBehaviour
             if(room.GetComponent<Room>().Width * room.GetComponent<Room>().Height > threshold)
             { 
                 MainRooms.Add(room);
-                Debug.Log("Added room");
             }
         });
 
         MainRooms.ForEach(mainRoom =>
         {
-            mainRoom.GetComponent<SpriteRenderer>().color = MainRoomColor;
+            mainRoom.GetComponent<SpriteRenderer>().color = MainRoomColor;  
         });
+
+        StartCoroutine(GenerateDelaunayTriangulation());
+       
     }
 
-    // private List<Triangle> GetTriangles(){
-    //     return null;
-    // }
+    IEnumerator GenerateDelaunayTriangulation()
+    {
+        yield return new WaitForSeconds(5);
+        MainRooms.ForEach(mainRoom =>
+        {
+            Vector3 center = mainRoom.GetComponent<SpriteRenderer>().bounds.center;
+            CentersOfRooms.Add(new Vertex2(center.x, center.y));
+            Delaunay.Generate(CentersOfRooms);
+        });
+       
+    }
 
+    private void OnDrawGizmos()
+    {
+        if (MainRooms != null)
+        {
+            MainRooms.ForEach(mainRoom =>
+            {
+                Gizmos.DrawSphere(mainRoom.GetComponent<SpriteRenderer>().bounds.center, 0.3f);
+            });
+        }
+
+        if (vertexForTest != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(new Vector3(vertexForTest.Vertices[0].X, vertexForTest.Vertices[0].Y, 0f), new Vector3(vertexForTest.Vertices[1].X, vertexForTest.Vertices[1].Y, 0.0f));
+        }
+    }
+
+    private void OnPostRender()
+    {
+        if (Delaunay == null || Delaunay.Cells.Count == 0 || Delaunay.Vertices.Count == 0) return;
+
+        GL.PushMatrix();
+
+        GL.LoadIdentity();
+        GL.MultMatrix(GetComponent<Camera>().worldToCameraMatrix);
+        GL.LoadProjectionMatrix(GetComponent<Camera>().projectionMatrix);
+
+        lineMaterial.SetPass(0);
+        GL.Begin(GL.LINES);
+
+        GL.Color(Color.red);
+
+        foreach (DelaunayCell<Vertex2> cell in Delaunay.Cells)
+        {
+            DrawSimplex(cell.Simplex);
+        }
+
+        GL.End();
+        GL.Begin(GL.QUADS);
+        GL.Color(Color.yellow);
+
+        foreach (Vertex2 v in Delaunay.Vertices)
+        {
+            DrawPoint(v);
+        }
+
+        GL.End();
+
+        GL.PopMatrix();
+    }
+
+    private void DrawSimplex(Simplex<Vertex2> f)
+    {
+        GL.Vertex3(f.Vertices[0].X, f.Vertices[0].Y, 0.0f);
+        GL.Vertex3(f.Vertices[1].X, f.Vertices[1].Y, 0.0f);
+
+        GL.Vertex3(f.Vertices[0].X, f.Vertices[0].Y, 0.0f);
+        GL.Vertex3(f.Vertices[2].X, f.Vertices[2].Y, 0.0f);
+
+        GL.Vertex3(f.Vertices[1].X, f.Vertices[1].Y, 0.0f);
+        GL.Vertex3(f.Vertices[2].X, f.Vertices[2].Y, 0.0f);
+
+        vertexForTest = f;
+    }
+
+    
+
+    private void DrawPoint(Vertex2 v)
+    {
+        float x = v.X;
+        float y = v.Y;
+        float s = 0.05f;
+
+        GL.Vertex3(x + s, y + s, 0.0f);
+        GL.Vertex3(x + s, y - s, 0.0f);
+        GL.Vertex3(x - s, y - s, 0.0f);
+        GL.Vertex3(x - s, y + s, 0.0f);
+    }
+
+    private void DrawCircle(Vertex2 v, float radius, int segments)
+    {
+        float ds = Mathf.PI * 2.0f / (float)segments;
+
+        for (float i = -Mathf.PI; i < Mathf.PI; i += ds)
+        {
+            float dx0 = Mathf.Cos(i);
+            float dy0 = Mathf.Sin(i);
+
+            float x0 = v.X + dx0 * radius;
+            float y0 = v.Y + dy0 * radius;
+
+            float dx1 = Mathf.Cos(i + ds);
+            float dy1 = Mathf.Sin(i + ds);
+
+            float x1 = v.X + dx1 * radius;
+            float y1 = v.Y + dy1 * radius;
+
+            GL.Vertex3(x0, y0, 0.0f);
+            GL.Vertex3(x1, y1, 0.0f);
+        }
+
+    }
 
 }
 
-
-// public class Triangle {
-//     public Vector2 A;
-
-//     public Vector2 B;
-//     public Vector2 C;
-//     constructor(Vector2 a, Vector2 b, Vector2 c){
-//         A = a;
-//         B = b;
-//         C = c;
-//     }
-// }

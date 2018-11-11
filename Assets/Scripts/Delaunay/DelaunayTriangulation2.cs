@@ -27,7 +27,6 @@ namespace HullDelaunayVoronoi.Delaunay
 
         public override void Generate(IList<VERTEX> input, bool assignIds = true, bool checkInput = false)
         {
-
             Clear();
             if (input.Count <= Dimension + 1) return;
 
