@@ -21,6 +21,8 @@ namespace HullDelaunayVoronoi
 
         private Material lineMaterial;
 
+        public List<Vector2> Vectors;
+
         private void Start()
         {
 
@@ -86,6 +88,27 @@ namespace HullDelaunayVoronoi
 
             GL.Vertex3(f.Vertices[1].X, f.Vertices[1].Y, 0.0f);
             GL.Vertex3(f.Vertices[2].X, f.Vertices[2].Y, 0.0f);
+
+            //Vector2 pointA = new Vector2(f.Vertices[0].X, f.Vertices[0].Y);
+            //Vector2 pointB = new Vector2(f.Vertices[1].X, f.Vertices[1].Y);
+
+            //Vector2 segment = pointB - pointA ;
+
+            //Debug.DrawLine(pointA, pointB, Color.red);
+
+            //Vector2 pointC = new Vector2(f.Vertices[0].X, f.Vertices[0].Y);
+            //Vector2 pointD = new Vector2(f.Vertices[2].X, f.Vertices[2].Y);
+
+            //Vector2 segment2 = pointD - pointC;
+
+            //Debug.DrawLine(pointC, pointD, Color.blue);
+
+            //Vector2 pointE = new Vector2(f.Vertices[1].X, f.Vertices[1].Y);
+            //Vector2 pointF = new Vector2(f.Vertices[2].X, f.Vertices[2].Y);
+
+            //Vector2 segment3 = pointE - pointF;
+
+            //Debug.DrawLine(pointE, pointF, Color.green);
         }
 
         private void DrawPoint(Vertex2 v)
